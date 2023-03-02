@@ -2,7 +2,7 @@ const express = require("express");
 const mysql = require("mysql");
 
 const app = express();
-
+app.use(express.json());
 //*********************** */
 //establecemos parametros
 var conexion = mysql.createConnection({
@@ -30,26 +30,48 @@ app.get("/", (req, res) => {
 });
 
 app.get("/api/articulos", (req, res) => {
-  conexion.query('SELECT * FROM articulos', (err, filas) => {
+  conexion.query("SELECT * FROM articulos", (err, filas) => {
     if (err) {
       throw err;
-    }else{
-        res.send(filas)
+    } else {
+      res.send(filas);
     }
   });
 });
 
-
 //mostrar un solo articulo
 app.get("/api/articulos/:id", (req, res) => {
-    conexion.query('SELECT * FROM articulos WHERE id = ?',[req.params.id], (err, fila) => {
+  conexion.query(
+    "SELECT * FROM articulos WHERE id = ?",
+    [req.params.id],
+    (err, fila) => {
       if (err) {
         throw err;
-      }else{
-          res.send(fila)
+      } else {
+        res.send(fila);
       }
-    });
+    }
+  );
+});
+
+
+//añadiremos un articulo a la base de datos
+app.post("/api/articulos", (req, res) => {
+  let data = {
+    descripcion: req.body.descripcion,
+    precio: req.body.precio,
+    stock: req.body.stock,
+  };
+
+  let sql = "INSERT INTO articulos SET ?";
+  conexion.query(sql, data, (error, results) => {
+    if (error) {
+      throw error;
+    } else {
+      res.send(results);
+    }
   });
+});
 //el primer parametro es el puerto, el segundo parametro es una f(x) que imprima una salida para verificar que el servidor se ejecuta, o capturar un error
 
 //crearemos una variable para nuestro puerto
