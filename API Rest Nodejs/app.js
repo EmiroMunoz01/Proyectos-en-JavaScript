@@ -1,8 +1,11 @@
 const express = require("express");
 const mysql = require("mysql");
-
+const cors = require("cors");
 const app = express();
+
 app.use(express.json());
+
+app.use(cors());
 //*********************** */
 //establecemos parametros
 var conexion = mysql.createConnection({
@@ -114,3 +117,6 @@ const puerto = 7000;
 app.listen(puerto, () => {
   console.log("Servidor OK! en puerto: " + puerto);
 });
+
+
+//instalamos CORS para evitar problemas de cruce de cabeceras
