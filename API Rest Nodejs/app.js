@@ -91,6 +91,21 @@ app.put("/api/articulos/:id", (req, res) => {
   });
 });
 
+//eliminar articulo
+app.delete("/api/articulos/:id", (req, res) => {
+  conexion.query(
+    "DELETE FROM articulos WHERE id = ?",
+    [req.params.id],
+    (error, filas) => {
+      if (error) {
+        throw error;
+      } else {
+        res.send(filas);
+      }
+    }
+  );
+});
+
 //el primer parametro es el puerto, el segundo parametro es una f(x) que imprima una salida para verificar que el servidor se ejecuta, o capturar un error
 
 //crearemos una variable para nuestro puerto
