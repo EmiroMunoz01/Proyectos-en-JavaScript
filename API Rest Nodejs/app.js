@@ -118,5 +118,4 @@ app.listen(puerto, () => {
   console.log("Servidor OK! en puerto: " + puerto);
 });
 
-
 //instalamos CORS para evitar problemas de cruce de cabeceras
