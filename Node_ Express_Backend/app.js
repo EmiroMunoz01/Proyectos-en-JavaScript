@@ -8,6 +8,12 @@ app.use(cors());
 
 const puerto = process.env.PORT || 5500;
 
+
+//aqui invocamos a las rutas!
+
+app.use("/api", require("./routes"))
+
+
 app.listen(puerto, () => {
   console.log("Escuchando en el puerto " + puerto);
 });
